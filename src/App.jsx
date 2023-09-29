@@ -1,7 +1,22 @@
 import "./styles/App.css";
 import { v4 as uuidv4 } from "uuid";
-import { useState, ueseEffect } from "react";
+import { useState, useEffect } from "react";
 // import FetchAPIData from "./components/FetchAPIData.jsx";
+
+//Fetch pokemon data list with name and img url
+//Create objects from the list to add health and id key
+//Save list in session storage and load for the game after every loss
+// Create a gameList from the list with only 24 items
+//Render and display the gameList with onclick function to affect object health
+//When all object in the gameList health is 1, win the game.
+//    end game and restart
+//    remake gameList
+//    render new gameList
+
+//When atleast one object in the list has more than 1 health
+//    end game and restart
+//    remake gameList
+//    render new gameList
 
 function App() {
   const [pokemonArr, setPokemonArr] = useState([]);
@@ -28,8 +43,10 @@ function App() {
     const fullArr = await arr.map((pokemon) => {
       return new Pokemon(pokemon.name, pokemon.url);
     });
+    console.log("fullArr");
     console.log(fullArr);
-    return fullArr;
+    const info = await createGameArr(fullArr);
+    return info;
   }
 
   function getRandomNumber(min, max) {
@@ -57,8 +74,11 @@ function App() {
     return gameArr;
   }
 
-  const info = createGameArr(getData());
-  console.log(info);
+  useEffect(() => {
+    const info2 = getData();
+    console.log(info2);
+    setPokemonArr(info2);
+  }, []);
 
   return (
     <>
