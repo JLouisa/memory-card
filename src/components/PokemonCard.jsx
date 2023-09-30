@@ -1,15 +1,22 @@
 import PropTypes from "prop-types";
 
 function PokemonCard(arr) {
-  console.log("arr");
-  console.log(arr.pokemonArr[0]);
+  const capitalLetter = (word) => {
+    const capital = word[0].toUpperCase();
+    return capital + word.slice(1);
+  };
+
   return (
     <div className="cardTile">
-      <div>
-        <img src={arr.pokemonArr[0] === undefined ? "undefined" : ""} alt={arr.length === 0 ? "undefined" : ""} />
+      <div className="cardImg">
+        <img
+          src={arr.pokemonArr[0] === undefined ? "" : arr.pokemonArr[0].url}
+          alt={arr.pokemonArr[0] === undefined ? "undefined" : arr.pokemonArr[0].name}
+        />
       </div>
-      <div>
-        <p>{arr.pokemonArr[0] === undefined ? "undefined" : "something"}</p>
+      <div className="cardName">
+        <p>{arr.pokemonArr[0] === undefined ? "undefined" : capitalLetter(arr.pokemonArr[0].name)}</p>
+        {/* <p>{arr.pokemonArr[0] === undefined ? "undefined" : "Crabominable"}</p> */}
       </div>
     </div>
   );

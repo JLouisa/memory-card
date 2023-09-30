@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import getRandomNumber from "./components/RandomNumberGenerator.jsx";
 import { PokemonCard } from "./components/PokemonCard.jsx";
+import FooterInfo from "./components/FooterInfo.jsx";
 
 //Fetch pokemon data list with name and img url
 //Create objects from the list to add health and id key
@@ -87,9 +88,20 @@ function App() {
   function saveSessionStorage(obj) {
     sessionStorage.setItem("fullGameList", JSON.stringify(obj));
   }
+  function loadSessionStorage() {
+    const savedFile = JSON.parse(sessionStorage.getItem("fullGameList"));
+    return savedFile;
+  }
 
   useEffect(() => {
-    getData();
+    const loadingFile = loadSessionStorage();
+    console.log(loadingFile);
+    if (loadingFile === null) {
+      getData();
+    } else {
+      setFullGameArr(loadingFile);
+      createGameArr(loadingFile);
+    }
   }, []);
 
   return (
@@ -99,11 +111,11 @@ function App() {
       </header>
       <main>
         <p className="read-the-docs">Click on the card you haven&apos;t click on before</p>
-        <section>
+        <section className="cards">
           <PokemonCard pokemonArr={pokemonArr} />
         </section>
       </main>
-      <footer></footer>
+      <FooterInfo />
     </>
   );
 }
