@@ -9,8 +9,8 @@ function PokemonCard({ pokemonArr, fullGameArr, createGameArr }) {
   const [lost, setLost] = useState(true);
 
   useEffect(() => {
-    console.log("Effect fullGameArr");
-    console.log(fullGameArr);
+    // console.log("Effect fullGameArr");
+    // console.log(fullGameArr);
   }, [fullGameArr]);
 
   useEffect(() => {
@@ -26,13 +26,14 @@ function PokemonCard({ pokemonArr, fullGameArr, createGameArr }) {
 
   function hitting(card) {
     const newArr = shuffle(gameArr);
-    console.log("newArr");
-    console.log(newArr);
-    console.log(card.id);
-    console.log((card.health += 1));
+    // console.log("newArr");
+    // console.log(newArr);
+    // console.log(card.id);
+    // console.log((card.health += 1));
+    setGameArr(newArr);
     if (card.health > 1) {
-      console.log("reset game");
-      console.log(fullGameArr);
+      // console.log("reset game");
+      // console.log(fullGameArr);
       createGameArr(fullGameArr);
     }
   }
