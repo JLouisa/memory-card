@@ -23,7 +23,6 @@ import FooterInfo from "./components/FooterInfo.jsx";
 function App() {
   const [fullGameArr, setFullGameArr] = useState([]);
   const [pokemonArr, setPokemonArr] = useState([]);
-  const [lost, setLost] = useState(true);
 
   class Pokemon {
     constructor(name, url) {
@@ -51,9 +50,9 @@ function App() {
         return newArr;
       })
     );
-    await saveSessionStorage(fullArr);
-    await setFullGameArr(fullArr);
-    await createGameArr(fullArr);
+    saveSessionStorage(fullArr);
+    setFullGameArr(fullArr);
+    createGameArr(fullArr);
   }
 
   //! Fetch image URL per Pokemon
@@ -65,8 +64,6 @@ function App() {
 
   //! Create game list of 24 items
   async function createGameArr(arr) {
-    // await console.log("arr2");
-    // await console.log(arr);
     let i = 0;
     const gameArr = [];
     const indArr = [];
@@ -95,7 +92,7 @@ function App() {
 
   useEffect(() => {
     const loadingFile = loadSessionStorage();
-    // console.log(loadingFile);
+
     if (loadingFile === null) {
       getData();
     } else {
@@ -104,14 +101,21 @@ function App() {
     }
   }, []);
 
+  if (fullGameArr.length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <header>
         <h1>Memory Card Game</h1>
       </header>
       <main>
-        <p className="read-the-docs">Click on the card you haven&apos;t click on before</p>
-        <PokemonCard pokemonArr={pokemonArr} />
+        <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
+        {/* Only render PokemonCard when fullGameArr is not empty */}
+        {fullGameArr.length > 0 && (
+          <PokemonCard pokemonArr={pokemonArr} fullGameArr={fullGameArr} createGameArr={createGameArr} />
+        )}
       </main>
       <FooterInfo />
     </>
