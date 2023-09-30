@@ -65,12 +65,12 @@ function App() {
 
   //! Create game list of 24 items
   async function createGameArr(arr) {
-    await console.log("arr2");
-    await console.log(arr);
+    // await console.log("arr2");
+    // await console.log(arr);
     let i = 0;
     const gameArr = [];
     const indArr = [];
-    while (i <= 23) {
+    while (i <= 19) {
       const randomNum = getRandomNumber(0, 99);
       if (!indArr.includes(randomNum)) {
         indArr.push(randomNum);
@@ -95,7 +95,7 @@ function App() {
 
   useEffect(() => {
     const loadingFile = loadSessionStorage();
-    console.log(loadingFile);
+    // console.log(loadingFile);
     if (loadingFile === null) {
       getData();
     } else {
@@ -111,9 +111,7 @@ function App() {
       </header>
       <main>
         <p className="read-the-docs">Click on the card you haven&apos;t click on before</p>
-        <section className="cards">
-          <PokemonCard pokemonArr={pokemonArr} />
-        </section>
+        <PokemonCard pokemonArr={pokemonArr} />
       </main>
       <FooterInfo />
     </>
