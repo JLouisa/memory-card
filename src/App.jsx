@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import getRandomNumber from "./components/RandomNumberGenerator.jsx";
 import { PokemonCard } from "./components/PokemonCard.jsx";
 import FooterInfo from "./components/FooterInfo.jsx";
+import ScoreBoardInfo from "./components/ScoreBoardInfo.jsx";
 
 //Fetch pokemon data list with name and img url
 //Create objects from the list to add health and id key
@@ -111,7 +112,12 @@ function App() {
         <h1>Memory Card Game</h1>
       </header>
       <main>
-        <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
+        <section className="title">
+          <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
+          <div className="scoreBoard">
+            <ScoreBoardInfo />
+          </div>
+        </section>
         {/* Only render PokemonCard when fullGameArr is not empty */}
         {fullGameArr.length > 0 && (
           <PokemonCard pokemonArr={pokemonArr} fullGameArr={fullGameArr} createGameArr={createGameArr} />
