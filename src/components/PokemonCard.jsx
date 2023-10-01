@@ -29,18 +29,14 @@ function PokemonCard({
   };
 
   function hitting(card) {
-    console.log((card.health += 1));
-    console.log(card);
     SetCurrentScore((currentScore += 1));
     const newArr = shuffle(gameArr);
-    console.log(newArr);
     if (losingLogic(card) === 0) return;
     if (winGameLogic(newArr) === 1) return;
   }
 
   function losingLogic(card) {
     if (card.health > 1) {
-      console.log("reset game");
       alert(`You lost! You have already clicked on ${capitalLetter(card.name)}`);
       SetCurrentScore(0);
       resetGame();
@@ -56,7 +52,6 @@ function PokemonCard({
       if (card.health === 1) winPoint += 1;
     });
     if (winPoint === 20) {
-      console.log("You won the game!");
       alert(`You won! Keep going to increase your High Score!`);
       resetGame();
       return 1;
@@ -65,7 +60,6 @@ function PokemonCard({
   }
 
   function resetGame() {
-    console.log(fullGameArr);
     createGameArr(fullGameArr);
   }
 

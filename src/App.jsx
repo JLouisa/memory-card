@@ -9,6 +9,7 @@ import CheckoutSwitch from "./components/CheckoutSwitch.jsx";
 import loading from "./assets/loading.gif";
 
 function App() {
+  //! Game full Array and partial Array
   const [fullGameArr, setFullGameArr] = useState([]);
   const [pokemonArr, setPokemonArr] = useState([]);
 
@@ -93,8 +94,6 @@ function App() {
       savedChecked: JSON.parse(localStorage.getItem("checkedMemGame")),
       savedArr: JSON.parse(sessionStorage.getItem("fullGameList")),
     };
-    console.log("savedFile");
-    console.log(savedFile);
     return savedFile;
   }
 
@@ -111,8 +110,6 @@ function App() {
     } else {
       setFullGameArr(loadingFile.savedArr);
       createGameArr(loadingFile.savedArr);
-      console.log("loadingFile.savedChecked");
-      console.log(loadingFile.savedChecked);
       setIsChecked(loadingFile.savedChecked);
     }
   }, []);
