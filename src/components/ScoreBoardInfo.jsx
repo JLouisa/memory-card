@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+// import { useState } from "react";
 
-function ScoreBoardInfo() {
-  const [currentScore, SetCurrentScore] = useState(0);
-  const [highScore, SetHighScore] = useState(0);
+function ScoreBoardInfo({ currentScore, highScore }) {
   return (
     <>
       <p>Score: {currentScore}</p>
@@ -12,8 +11,8 @@ function ScoreBoardInfo() {
 }
 
 ScoreBoardInfo.propTypes = {
-  // pokemonArr: PropTypes.array,
-  // fullGameArr: PropTypes.array,
+  currentScore: PropTypes.number,
+  highScore: PropTypes.number,
   // createGameArr: PropTypes.func,
 };
 

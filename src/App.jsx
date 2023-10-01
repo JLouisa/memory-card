@@ -5,6 +5,7 @@ import getRandomNumber from "./components/RandomNumberGenerator.jsx";
 import { PokemonCard } from "./components/PokemonCard.jsx";
 import FooterInfo from "./components/FooterInfo.jsx";
 import ScoreBoardInfo from "./components/ScoreBoardInfo.jsx";
+import loading from "./assets/loading.gif";
 
 //Fetch pokemon data list with name and img url
 //Create objects from the list to add health and id key
@@ -25,10 +26,16 @@ function App() {
   const [fullGameArr, setFullGameArr] = useState([]);
   const [pokemonArr, setPokemonArr] = useState([]);
 
+  //!ScoreBoard State Lifted
+  const [currentScore, SetCurrentScore] = useState(0);
+  const [highScore, SetHighScore] = useState(0);
+
+  //! Create Pokemon Objects from JSON
   class Pokemon {
-    constructor(name, url) {
+    constructor(name, url, type) {
       this.name = name;
       this.url = url;
+      this.type = type;
       this.health = 0;
       this.id = uuidv4();
     }
@@ -47,7 +54,7 @@ function App() {
     const fullArr = await Promise.all(
       arr.map(async (pokemon) => {
         const url = await getDataURL(pokemon.url);
-        const newArr = new Pokemon(pokemon.name, url);
+        const newArr = new Pokemon(pokemon.name, url.url, url.type);
         return newArr;
       })
     );
@@ -59,8 +66,12 @@ function App() {
   //! Fetch image URL per Pokemon
   async function getDataURL(url) {
     const dataURL = await fetch(url, { method: "GET", mode: "cors" });
-    const result = await dataURL.json();
-    return result.sprites.front_default;
+    const response = await dataURL.json();
+    const result = {
+      url: response.sprites.front_default,
+      type: response.types[0].type.name,
+    };
+    return result;
   }
 
   //! Create game list of 24 items
@@ -103,7 +114,20 @@ function App() {
   }, []);
 
   if (fullGameArr.length === 0) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <header>
+          <h1>Memory Card Game</h1>
+        </header>
+        <main className="loadingMain">
+          <section className="loadingScreen">
+            <img src={loading} />
+            <span>Loading...</span>
+          </section>
+        </main>
+        <FooterInfo />
+      </>
+    );
   }
 
   return (
@@ -115,12 +139,20 @@ function App() {
         <section className="title">
           <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
           <div className="scoreBoard">
-            <ScoreBoardInfo />
+            <ScoreBoardInfo currentScore={currentScore} highScore={highScore} />
           </div>
         </section>
         {/* Only render PokemonCard when fullGameArr is not empty */}
         {fullGameArr.length > 0 && (
-          <PokemonCard pokemonArr={pokemonArr} fullGameArr={fullGameArr} createGameArr={createGameArr} />
+          <PokemonCard
+            pokemonArr={pokemonArr}
+            fullGameArr={fullGameArr}
+            createGameArr={createGameArr}
+            currentScore={currentScore}
+            SetCurrentScore={SetCurrentScore}
+            highScore={highScore}
+            SetHighScore={SetHighScore}
+          />
         )}
       </main>
       <FooterInfo />

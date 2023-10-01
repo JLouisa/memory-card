@@ -89,3 +89,17 @@ footer {
   display: flex;
   justify-content: space-between;
 }
+
+.loadingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.loadingMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
