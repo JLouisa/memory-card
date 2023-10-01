@@ -146,7 +146,6 @@ function App() {
             </div>
           </div>
         </section>
-        {/* Only render PokemonCard when fullGameArr is not empty */}
         {fullGameArr.length > 0 && (
           <PokemonCard
             pokemonArr={pokemonArr}
