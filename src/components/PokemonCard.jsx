@@ -131,6 +131,7 @@ function PokemonCard({
                 <img
                   src={card === undefined ? { loading } : card.url}
                   alt={card === undefined ? "undefined" : card.name}
+                  draggable="false"
                 />
               </div>
               <div className="cardName">

@@ -110,3 +110,13 @@ footer {
   align-items: center;
   height: 70vh;
 }
+
+main > * {
+  user-select: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+}
+
+main img {
+  user-drag: none;
+}
