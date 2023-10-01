@@ -2,16 +2,18 @@
 import Switch from "react-switch";
 import PropTypes from "prop-types";
 
-function CheckoutSwitch({ isChecked, setIsChecked }) {
+function CheckoutSwitch({ isChecked = false, setIsChecked, saveLocalStorage }) {
   const handleChange = (checked) => {
     setIsChecked(checked);
+    console.log("isChecked");
+    console.log(checked);
+    saveLocalStorage(checked);
     // You can perform actions when the switch is toggled here
   };
 
   return (
     <div className="checkout-switch">
       <label>
-        {/* <span>Checkout</span> */}
         <Switch
           onChange={handleChange}
           checked={isChecked}
@@ -28,6 +30,7 @@ function CheckoutSwitch({ isChecked, setIsChecked }) {
 CheckoutSwitch.propTypes = {
   isChecked: PropTypes.bool,
   setIsChecked: PropTypes.func,
+  saveLocalStorage: PropTypes.func,
 };
 
 export default CheckoutSwitch;

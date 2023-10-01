@@ -8,21 +8,6 @@ import ScoreBoardInfo from "./components/ScoreBoardInfo.jsx";
 import CheckoutSwitch from "./components/CheckoutSwitch.jsx";
 import loading from "./assets/loading.gif";
 
-//Fetch pokemon data list with name and img url
-//Create objects from the list to add health and id key
-//Save list in session storage and load for the game after every loss
-// Create a gameList from the list with only 24 items
-//Render and display the gameList with onclick function to affect object health
-//When all object in the gameList health is 1, win the game.
-//    end game and restart
-//    remake gameList
-//    render new gameList
-
-//When atleast one object in the list has more than 1 health
-//    end game and restart
-//    remake gameList
-//    render new gameList
-
 function App() {
   const [fullGameArr, setFullGameArr] = useState([]);
   const [pokemonArr, setPokemonArr] = useState([]);
@@ -63,6 +48,7 @@ function App() {
       })
     );
     saveSessionStorage(fullArr);
+    // saveLocalStorage(isChecked);
     setFullGameArr(fullArr);
     createGameArr(fullArr);
   }
@@ -98,22 +84,36 @@ function App() {
   }
 
   //!Save fullList in Session Storage
-  function saveSessionStorage(obj) {
+  function saveSessionStorage(obj, bool) {
+    localStorage.setItem("checkedMemGame", JSON.stringify(bool));
     sessionStorage.setItem("fullGameList", JSON.stringify(obj));
   }
   function loadSessionStorage() {
-    const savedFile = JSON.parse(sessionStorage.getItem("fullGameList"));
+    const savedFile = {
+      savedChecked: JSON.parse(localStorage.getItem("checkedMemGame")),
+      savedArr: JSON.parse(sessionStorage.getItem("fullGameList")),
+    };
+    console.log("savedFile");
+    console.log(savedFile);
     return savedFile;
+  }
+
+  //!Save fullList in Local Storage
+  function saveLocalStorage(bool) {
+    localStorage.setItem("checkedMemGame", JSON.stringify(bool));
   }
 
   useEffect(() => {
     const loadingFile = loadSessionStorage();
 
-    if (loadingFile === null) {
+    if (loadingFile === null || loadingFile.savedArr === null) {
       getData();
     } else {
-      setFullGameArr(loadingFile);
-      createGameArr(loadingFile);
+      setFullGameArr(loadingFile.savedArr);
+      createGameArr(loadingFile.savedArr);
+      console.log("loadingFile.savedChecked");
+      console.log(loadingFile.savedChecked);
+      setIsChecked(loadingFile.savedChecked);
     }
   }, []);
 
@@ -141,10 +141,12 @@ function App() {
       </header>
       <main>
         <section className="title">
-          <CheckoutSwitch isChecked={isChecked} setIsChecked={setIsChecked} />
-          <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
-          <div className="scoreBoard">
-            <ScoreBoardInfo currentScore={currentScore} highScore={highScore} />
+          <div className="stickyHeader">
+            <CheckoutSwitch isChecked={isChecked} setIsChecked={setIsChecked} saveLocalStorage={saveLocalStorage} />
+            <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
+            <div className="scoreBoard">
+              <ScoreBoardInfo currentScore={currentScore} highScore={highScore} />
+            </div>
           </div>
         </section>
         {/* Only render PokemonCard when fullGameArr is not empty */}
