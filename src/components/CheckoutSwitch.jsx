@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import Switch from "react-switch";
 import PropTypes from "prop-types";
 
@@ -8,7 +7,6 @@ function CheckoutSwitch({ isChecked = false, setIsChecked, saveLocalStorage }) {
     console.log("isChecked");
     console.log(checked);
     saveLocalStorage(checked);
-    // You can perform actions when the switch is toggled here
   };
 
   return (

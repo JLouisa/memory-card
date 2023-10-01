@@ -15,6 +15,7 @@ function PokemonCard({
   isChecked,
 }) {
   const [gameArr, setGameArr] = useState([]);
+  const [tempGameArr, setTempGameArr] = useState([]);
 
   useEffect(() => {
     const copyPokemonArr = JSON.parse(JSON.stringify(pokemonArr));
@@ -29,8 +30,12 @@ function PokemonCard({
   };
 
   function hitting(card) {
+    card.health += 1;
     SetCurrentScore((currentScore += 1));
     const newArr = shuffle(gameArr);
+    setGameArr(newArr);
+    console.log("newArr");
+    console.log(newArr);
     if (losingLogic(card) === 0) return;
     if (winGameLogic(newArr) === 1) return;
   }
@@ -83,7 +88,6 @@ function PokemonCard({
   };
 
   function getColorRGBA(cardType) {
-    // const checkedIt = false;
     if (!isChecked) {
       return "white";
     } else {

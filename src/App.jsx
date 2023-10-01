@@ -33,8 +33,9 @@ function App() {
 
   //! Fetch data from PokéAPI
   async function getData() {
+    const number = getRandomNumber(0, 900);
     const url = "https://pokeapi.co/api/v2/";
-    const apiKey = "pokemon?limit=100&offset=0";
+    const apiKey = `pokemon?limit=100&offset=${number}`;
 
     const data = await fetch(url + apiKey, { method: "GET", mode: "cors" });
     const result = await data.json();
@@ -49,7 +50,6 @@ function App() {
       })
     );
     saveSessionStorage(fullArr);
-    // saveLocalStorage(isChecked);
     setFullGameArr(fullArr);
     createGameArr(fullArr);
   }
