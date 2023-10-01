@@ -12,18 +12,14 @@ function PokemonCard({
   SetCurrentScore,
   highScore,
   SetHighScore,
+  isChecked,
 }) {
   const [gameArr, setGameArr] = useState([]);
-  // const [lost, setLost] = useState(true);
 
   useEffect(() => {
-    // console.log("Effect fullGameArr");
-    // console.log(fullGameArr);
-  }, [fullGameArr]);
-
-  useEffect(() => {
+    const copyPokemonArr = JSON.parse(JSON.stringify(pokemonArr));
     if (pokemonArr !== undefined) {
-      setGameArr(pokemonArr);
+      setGameArr(copyPokemonArr);
     }
   }, [pokemonArr]);
 
@@ -92,24 +88,35 @@ function PokemonCard({
     return gameArr;
   };
 
-  function backColor(card) {
-    if (card.type === "water") return "blue";
-    if (card.type === "normal") return "brown";
-    if (card.type === "fire") return "red";
-    if (card.type === "grass") return "green";
-    if (card.type === "electric") return "yellow";
-    if (card.type === "ice") return "skyblue";
-    if (card.type === "fighting") return "brown";
-    if (card.type === "poison") return "green";
-    if (card.type === "ground") return "brown";
-    if (card.type === "rock") return "grey";
-    if (card.type === "bug") return "green";
-    if (card.type === "fairy") return "pink";
-    if (card.type === "psychic") return "purple";
-    if (card.type === "ghost") return "purple";
-    return "white";
-  }
+  function getColorRGBA(cardType) {
+    // const checkedIt = false;
+    if (!isChecked) {
+      return "white";
+    } else {
+      const colorMap = {
+        normal: "rgba(139, 69, 19, 0.2)",
+        fire: "rgba(255, 0, 0, 0.2)",
+        water: "rgba(0, 0, 255, 0.2)",
+        grass: "rgba(0, 128, 0, 0.2)",
+        flying: "rgba(0, 0, 0, 0.2)",
+        fighting: "rgba(139, 69, 19, 0.2)",
+        poison: "rgba(128, 0, 128, 0.2)",
+        electric: "rgba(255, 255, 0, 0.2)",
+        ground: "rgba(139, 69, 19, 0.2)",
+        rock: "rgba(169, 169, 169, 0.2)",
+        psychic: "rgba(128, 0, 128, 0.2)",
+        ice: "rgba(135, 206, 250, 0.2)",
+        bug: "rgba(128, 128, 0, 0.2)",
+        ghost: "rgba(128, 0, 128, 0.2)",
+        steel: "rgba(128, 128, 128, 0.2)",
+        dragon: "rgba(0, 0, 0, 0.2)",
+        dark: "rgba(0, 0, 0, 0.2)",
+        fairy: "rgba(255, 192, 203, 0.2)",
+      };
 
+      return colorMap[cardType] || "white";
+    }
+  }
   return (
     <>
       <section className="cards">
@@ -122,7 +129,7 @@ function PokemonCard({
                 hitting(card);
               }}
             >
-              <div className="cardImg" style={{ backgroundColor: /*backColor(card)*/ "white" }}>
+              <div className="cardImg" style={{ backgroundColor: getColorRGBA(card.type) }}>
                 <img
                   src={card === undefined ? { loading } : card.url}
                   alt={card === undefined ? "undefined" : card.name}
@@ -147,6 +154,7 @@ PokemonCard.propTypes = {
   SetCurrentScore: PropTypes.func,
   highScore: PropTypes.number,
   SetHighScore: PropTypes.func,
+  isChecked: PropTypes.bool,
 };
 
 export { PokemonCard };

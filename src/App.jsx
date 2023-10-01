@@ -5,6 +5,7 @@ import getRandomNumber from "./components/RandomNumberGenerator.jsx";
 import { PokemonCard } from "./components/PokemonCard.jsx";
 import FooterInfo from "./components/FooterInfo.jsx";
 import ScoreBoardInfo from "./components/ScoreBoardInfo.jsx";
+import CheckoutSwitch from "./components/CheckoutSwitch.jsx";
 import loading from "./assets/loading.gif";
 
 //Fetch pokemon data list with name and img url
@@ -25,6 +26,9 @@ import loading from "./assets/loading.gif";
 function App() {
   const [fullGameArr, setFullGameArr] = useState([]);
   const [pokemonArr, setPokemonArr] = useState([]);
+
+  //! Showing Colors
+  const [isChecked, setIsChecked] = useState(false);
 
   //!ScoreBoard State Lifted
   const [currentScore, SetCurrentScore] = useState(0);
@@ -137,6 +141,7 @@ function App() {
       </header>
       <main>
         <section className="title">
+          <CheckoutSwitch isChecked={isChecked} setIsChecked={setIsChecked} />
           <p className="read-the-docs">Click on the card you haven&apos;t clicked on before</p>
           <div className="scoreBoard">
             <ScoreBoardInfo currentScore={currentScore} highScore={highScore} />
@@ -152,6 +157,7 @@ function App() {
             SetCurrentScore={SetCurrentScore}
             highScore={highScore}
             SetHighScore={SetHighScore}
+            isChecked={isChecked}
           />
         )}
       </main>
