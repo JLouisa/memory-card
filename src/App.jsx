@@ -49,7 +49,7 @@ function App() {
         return newArr;
       })
     );
-    saveSessionStorage(fullArr);
+    saveSessionStorage(fullArr, false);
     setFullGameArr(fullArr);
     createGameArr(fullArr);
   }
