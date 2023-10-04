@@ -41,6 +41,7 @@ function App() {
     const result = await data.json();
     await createGameFullArr(result.results);
   }
+  //! Using Promise.all for the array of return promisses
   async function createGameFullArr(arr) {
     const fullArr = await Promise.all(
       arr.map(async (pokemon) => {
