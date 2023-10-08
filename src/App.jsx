@@ -103,6 +103,7 @@ function App() {
     localStorage.setItem("checkedMemGame", JSON.stringify(bool));
   }
 
+  //! One time loading of the Local and Session Storage
   useEffect(() => {
     const loadingFile = loadSessionStorage();
 
