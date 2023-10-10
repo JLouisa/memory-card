@@ -2,10 +2,9 @@ import Switch from "react-switch";
 import PropTypes from "prop-types";
 
 function CheckoutSwitch({ isChecked = false, setIsChecked, saveLocalStorage }) {
+  //! Check for the card background colors
   const handleChange = (checked) => {
     setIsChecked(checked);
-    console.log("isChecked");
-    console.log(checked);
     saveLocalStorage(checked);
   };
 
