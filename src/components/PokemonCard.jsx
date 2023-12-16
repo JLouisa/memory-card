@@ -15,7 +15,7 @@ function PokemonCard({
   isChecked,
 }) {
   const [gameArr, setGameArr] = useState([]);
-  const [tempGameArr, setTempGameArr] = useState([]);
+  // const [tempGameArr, setTempGameArr] = useState([]);
 
   useEffect(() => {
     const copyPokemonArr = JSON.parse(JSON.stringify(pokemonArr));
